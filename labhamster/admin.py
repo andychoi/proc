@@ -251,7 +251,7 @@ class OrderAdmin(RequestFormAdmin):
             return obj.comment
         r = obj.comment[:28]
         r = '<a title="%s">%s</a>' % (obj.comment, T.truncate(obj.comment, 30))
-        return r
+        return mark_safe(r)
     show_comment.short_description = 'comment'
     show_comment.allow_tags = True
 
