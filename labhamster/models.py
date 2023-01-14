@@ -10,6 +10,7 @@ from .customfields import DayModelField, DayConversion
 from djmoney.models.fields import MoneyField
 from datetime import date
 from . import tools as T
+from django.utils.safestring import mark_safe
 
 APP_URL = '/labhamster'
 
@@ -112,8 +113,8 @@ class Order(models.Model):
         """color status display"""
         color = {'ordered': '088A08',
                  'pending': 'B40404'}
-        return '<span style="color: #%s;">%s</span>' %\
-               (color.get(self.status, '000000'), self.status)
+        return mark_safe('<span style="color: #%s;">%s</span>' %\
+               (color.get(self.status, '000000'), self.status))
 
     Status.allow_tags = True
     Status.admin_order_field = 'status'
