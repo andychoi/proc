@@ -148,7 +148,7 @@ class ProductAdmin(admin.ModelAdmin):
     make_deprecated.short_description = 'Mark selected entries as deprecated'
 
     def make_csv(self, request, queryset):
-        from collections import OrderedDict
+        from collections.abc import OrderedDict
 
         fields = OrderedDict([('Name', 'name'),
                               ('Vendor', 'vendor.name'),
@@ -322,7 +322,7 @@ class OrderAdmin(RequestFormAdmin):
         """
         Export selected orders as CSV file
         """
-        from collections import OrderedDict
+        from collections.abc import OrderedDict
 
         fields = OrderedDict([('Product', 'product.name'),
                               ('Quantity', 'quantity'),

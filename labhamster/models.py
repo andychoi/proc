@@ -43,11 +43,13 @@ class Order(models.Model):
     created_by = models.ForeignKey(User, null=False, blank=False, db_index=True,
                                    verbose_name='requested by',
                                    related_name='requests',
+                                   on_delete=models.CASCADE,
                                    help_text='user who created this order')
 
     ordered_by = models.ForeignKey(User, null=True, blank=True, db_index=True,
                                    verbose_name='ordered by',
                                    related_name='orders',
+                                   on_delete=models.CASCADE,
                                    help_text='user who sent this order out')
 
     po_number = models.CharField('P.O.number',
@@ -56,6 +58,7 @@ class Order(models.Model):
 
     product = models.ForeignKey('Product', verbose_name='Product', related_name='orders',
                                 blank=False, null=False,
+                                on_delete=models.CASCADE,
                                 help_text='Click the magnifying lens to select from the list of existing products.\n' +
                                 'For a new product, first click the lens, then click "Add Product" and fill out and save the Product form.')
 
@@ -75,6 +78,7 @@ class Order(models.Model):
                                       default='consumables', max_length=20)
 
     grant = models.ForeignKey('Grant', null=True, blank=True, db_index=True,
+                              on_delete=models.CASCADE,
                               related_name='orders')
 
     comment = models.TextField(blank=True,
@@ -162,6 +166,7 @@ class Product(models.Model):
 
     vendor = models.ForeignKey('Vendor', verbose_name='Vendor',
                                blank=False,
+                               on_delete=models.CASCADE,
                                help_text='select normal supplier of this product')
 
     catalog = models.CharField(max_length=30, unique=False, blank=False,
@@ -169,6 +174,7 @@ class Product(models.Model):
 
     manufacturer = models.ForeignKey('Vendor', verbose_name='Manufacturer',
                                      blank=True, null=True,
+                                     on_delete=models.CASCADE,
                                      related_name='manufacturer_product',
                                      help_text='original manufacturer if different')
 
@@ -177,6 +183,7 @@ class Product(models.Model):
                                             help_text='manufacturer catalogue number')
 
     category = models.ForeignKey('Category', verbose_name='Product Category',
+                                 on_delete=models.CASCADE,
                                  blank=False)
 
     shelflife = DayModelField(verbose_name='Shelf Life', unit='months',
